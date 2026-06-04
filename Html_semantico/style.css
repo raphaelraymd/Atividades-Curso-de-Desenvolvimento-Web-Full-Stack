@@ -1,0 +1,135 @@
+header {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #1a1716;
+    border-radius: 20px;
+}
+
+#logo {
+    color: #0466c8;
+}
+
+nav ul{
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color:#0466c8;
+    background-color: #0a0908;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding: 40px 0;
+}
+
+main section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+#conteudoPrincipal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px;
+    background-color: #1a1716;
+    border-radius: 20px;
+    text-align: justify;
+    max-width: 800px;
+}
+
+#conteudoPrincipal h2 {
+    color: #0466c8;
+}
+
+#projetos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+#projetos h3 {
+    color: #0466c8;
+    font-size: 28px;
+}
+
+.containerProjetos {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.projeto {
+    background-color: #1a1716;
+    padding: 20px;
+    border-radius: 20px;
+    width: 300px;
+    transition: 0.3s;
+}
+
+.projeto:hover {
+    transform: translateY(-5px);
+}
+
+.projeto h4 {
+    margin-bottom: 10px;
+    color: #0466c8;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    background-color: #1a1716;
+    border-radius: 20px;
+    color: #ccc;
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    header {
+        flex-direction: row;
+        gap: 20px;
+    }
+    #conteudoPrincipal {
+        font-size: 20px;
+    }
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    .containerProjetos {
+        flex-direction: column;
+        align-items: center;
+    }
+    .projeto {
+        font-size: 20px;
+        width: 100%;
+        
+    }
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Card de Sabedoria</title>
+</head>
+
+<body class="bg-black h-screen flex items-center justify-center">
+    <div class="bg-[#1a1a1a] border border-[#bdbdbd] p-8 rounded-xl w-96 text-center">
+        <p id="frase" class="text-[#bdbdbd] text-xl mb-6">
+            Clique no botão para receber uma sabedoria.
+        </p>
+        <button id="botao"
+            class="border border-[#bdbdbd] text-[#bdbdbd] px-4 py-2 rounded-lg hover:bg-[#bdbdbd] hover:text-black transition">
+            Buscar conselho
+        </button>
+    </div>
+    <script>
+        const frase = document.getElementById("frase");
+        const botao = document.getElementById("botao");
+
+        botao.addEventListener("click", buscarConselho);
+
+        async function buscarConselho() {
+            frase.innerText = "Buscando sabedoria...";
+
+            const resposta = await fetch("https://api.adviceslip.com/advice");
+            const dados = await resposta.json();
+
+            frase.innerText = dados.slip.advice;
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM e Eventos</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: 0.3s;
+        }
+
+        header {
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 15px;
+            list-style: none;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+        }
+
+        main {
+            background-color: lightblue;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            color: black;
+            transition: 0.3s;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 300px;
+        }
+
+        input {
+            padding: 8px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        #caixa {
+            width: 200px;
+            height: 200px;
+            background-color: lightblue;
+            display: flex;
+            color: white;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+
+        .darkmode {
+            background-color: black;
+            color:rgb(66, 100, 211);
+        }
+
+        .darkmode main {
+            background-color: #222;
+            color:rgb(66, 100, 211);
+        }
+
+        .darkmode nav a {
+            color:rgb(66, 100, 211);
+;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>DOM e Eventos</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">DOM</a></li>
+                <li><a href="#">Eventos</a></li>
+            </ul>
+
+            <div>
+                <button id="darkmode">Alterar Modo</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <aside>
+            <h2>O que é o DOM?</h2>
+            <p>
+                O DOM (Document Object Model) é uma representação em árvore de um documento HTML ou XML.
+                Ele permite que os desenvolvedores acessem e manipulem a estrutura, estilo e conteúdo
+                de uma página web usando JavaScript.
+            </p>
+            <h2>Eventos</h2>
+            <p>
+                Eventos são ações ou ocorrências que acontecem no navegador, como cliques,
+                movimentos do mouse, teclas pressionadas, entre outros.
+            </p>
+        </aside>
+        <section>
+            <form>
+                <label for="nome">Nome:</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    required>
+
+                <label for="email">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$">
+
+                <button type="submit">Enviar</button>
+            </form>
+            <p id="resposta"></p>
+        </section>
+    </main>
+
+    <div id="caixa">
+        <p>Eu sou uma caixa</p>
+    </div>
+
+    <script>
+        const h1 = document.querySelector('h1');
+        const caixa = document.getElementById('caixa');
+        const corpo = document.body;
+        const darkModeButton = document.getElementById('darkmode');
+        const nome = document.getElementById('nome');
+        const email = document.getElementById('email');
+        const btnSubmit = document.querySelector('button[type="submit"]');
+        const resposta = document.getElementById('resposta');
+
+        h1.innerHTML = 'Aprendendo <em>JavaScript</em>';
+
+        btnSubmit.addEventListener('click', (event) => {
+            event.preventDefault();
+            if (nome.value === '' || email.value === '') {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+            resposta.innerText =
+                `Olá, ${nome.value}! Seu email é ${email.value}.`;
+
+        });
+
+        caixa.addEventListener('mouseenter', () => {
+            caixa.style.backgroundColor = 'green';
+            caixa.querySelector('p').innerText =
+                'Você entrou na caixa!';
+        });
+
+        caixa.addEventListener('mouseleave', () => {
+            caixa.style.backgroundColor = 'red';
+            caixa.querySelector('p').innerText =
+                'Você saiu da caixa!';
+        });
+
+        caixa.addEventListener('click', () => {
+            caixa.style.backgroundColor = 'black';
+            caixa.querySelector('p').innerText =
+                'Eu sou uma caixa';
+        });
+
+        darkModeButton.addEventListener('click', () => {
+            corpo.classList.toggle('darkmode');
+        });
+
+    </script>
+</body>
+</html>

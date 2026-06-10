@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Projeto DevFinder</title>
+</head>
+
+<body class="bg-black text-white p-8">
+    <header class="text-center mb-10">
+        <h1 class="text-5xl font-bold text-white">
+            Encontre seu Dev favorito
+        </h1>
+        <p class="text-gray-400 mt-5">
+            Acompanhe e conheça aqui os projetos já feitos pelo DEV!
+        </p>
+    </header>
+
+    <div class="min-h-screen flex flex-col items-center">
+        <div class="bg-gradient-to-b from-black to-gray-300 p-8 rounded-lg shadow-lg w-80">
+            <h1 class="text-2xl font-bold text-center mb-6 text-white">
+                Pesquise aqui o perfil no GitHub
+            </h1>
+            <div class="mb-4">
+                <label class="block mb-2 font-bold text-white">
+                    Digite o usuário
+                </label>
+                <input type="text" id="username" class="w-full border rounded p-2 text-black"
+                    placeholder="Digite aqui o Nome">
+            </div>
+            <button id="buscarBtn" class="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition">
+                Buscar
+            </button>
+        </div>
+
+        <div id="resultado" class="mt-8 w-full max-w-md"></div>
+        <div id="repositorios" class="mt-6 w-full max-w-md"></div>
+    </div>
+
+    <script>
+        const input = document.getElementById("username")
+        const botao = document.getElementById("buscarBtn")
+        const resultado = document.getElementById("resultado")
+        const repositorios = document.getElementById("repositorios")
+
+        botao.addEventListener("click", buscarUsuario)
+
+        async function buscarUsuario() {
+
+            const username = input.value.trim()
+            if (username === "") {
+                resultado.innerHTML = `
+                    <p class="text-gray text-center mt-4">
+                        Digite um usuário
+                    </p>
+                
+                `
+                repositorios.innerHTML = ""
+                return
+            }
+
+            resultado.innerHTML = ""
+            repositorios.innerHTML = ""
+
+            const resposta = await fetch(
+                `https://api.github.com/users/${username}`
+            )
+            const dados = await resposta.json()
+            console.log(dados)
+            if (dados.message === "Not Found") {
+                resultado.innerHTML = `
+                
+                    <p class="text-gray-400 text-center mt-4">
+                        Perfil não encontrado
+                    </p>
+                
+                `
+                return
+            }
+            resultado.innerHTML = `
+                <div class="bg-neutral-900 p-6 rounded-lg border border-gray-700 text-center">
+                    <img
+                        src="${dados.avatar_url}"
+                        class="w-32 h-32 rounded-full mx-auto border border-gray-600"
+                    >
+                    <h2 class="text-2xl mt-4 text-gray-200 font-bold">
+                        ${dados.name || dados.login}
+                    </h2>
+                    <p class="text-gray-400 mt-2">
+                        ${dados.bio || "Sem biografia"}
+                    </p>
+                </div>
+            `
+            const respostaRepos = await fetch(
+                `https://api.github.com/users/${username}/repos`
+            )
+            const repos = await respostaRepos.json()
+            console.log(repos)
+            repositorios.innerHTML = `
+    
+                <h2 class="text-2xl font-bold text-gray-200 mb-4 text-center">
+                    Repositórios
+                </h2>
+            `
+            repos.slice(0, 10).forEach(function (repo) {
+                repositorios.innerHTML += `
+                    <div class="bg-neutral-900 p-4 rounded-lg mt-3 border border-gray-700">
+                        <h3 class="text-gray-100 font-bold">
+                            ${repo.name}
+                        </h3>
+                        <p class="text-gray-400 text-sm mt-1">
+                            Linguagem: ${repo.language || "Não informada"}
+                        </p>
+                        <a 
+                            href="${repo.html_url}"
+                            target="_blank"
+                            class="text-gray-300 underline mt-2 inline-block"
+                        >
+                            Ver Repositório
+                        </a>
+                    </div>
+                `
+            })
+        }
+    </script>
+
+    <footer class="bg-black text-white text-center mt-5 p-4">
+        Copyright © 2026 Raphael Raymundo.
+        Todos os direitos reservados.
+    </footer>
+
+</body>
+
+</html>

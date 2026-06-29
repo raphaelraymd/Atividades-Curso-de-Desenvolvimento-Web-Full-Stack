@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Lista de Convidados</title>
+</head>
+<body class="bg-gray-950 p-2">
+    <header>
+        <h1 class="bg-gray-950 font-bold font-serif text-blue-800 justify-center text-2xl text-center border rounded-xl p-2">
+            Lista de Convidados 
+        </h1>
+    </header>
+    <div class="justify-center min-h-screen flex items-center bg-gray-950 text-blue-800 border rounded-xl p-5 mt-2">
+        <input type="text" id="nomeConvidado" placeholder="Digite um nome" class="border rounded-lg p-2 text-blue-800">
+        <button id="btnAdicionar" class="bg-blue-800 text-white p-2 rounded-lg ml-2">
+            Adicionar
+        </button>
+    </div>
+    
+    <script>
+        let convidados = [];
+        const botao = document.getElementById("btnAdicionar");
+        botao.addEventListener("click", function() {
+            const input = document.getElementById("nomeConvidado");
+            const nome = input.value.trim();
+            if(nome === ""){
+                alert("Digite um nome!");
+                return;
+            }
+
+            convidados.push(nome);
+            input.value ="";
+            console.log(convidados);
+
+        });
+    </script>
+    <footer class="bg-gray-950 text-blue-800 p-2 text-center border rounded-lg mt-2">
+        <p>
+            Copyright © 2026 Raphael Raymundo.
+            Todos os direitos reservados.
+        </p>
+    </footer>
+</body>
+</html>
